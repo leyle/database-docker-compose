@@ -1,0 +1,21 @@
+version: '3.6'
+
+networks:
+  mysql-nt:
+    name: $NETWORK
+
+services:
+  mysql:
+    image: mysql:$TAG
+    container_name: $CONTAINER
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - TZ=$TIMEZONE
+      - MYSQL_ROOT_PASSWORD=$PASSWORD
+    volumes:
+      - $PWD/data:/var/lib/mysql
+    networks:
+      - mysql-nt
+    ports:
+      - $PORT:3306

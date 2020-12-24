@@ -1,0 +1,21 @@
+version: '3.6'
+
+networks:
+  mongodb-nt:
+    name: $NETWORK
+
+services:
+  mongo:
+    image: mongo:$TAG
+    restart: always
+    container_name: $CONTAINER
+    environment:
+      - TZ=$TIMEZONE
+      - MONGO_INITDB_ROOT_USERNAME=$ROOTUSER
+      - MONGO_INITDB_ROOT_PASSWORD=$ROOTPASSWD
+    volumes:
+      - $PWD/data:/data/db
+    networks:
+      - mongodb-nt
+    ports:
+      - $PORT:27017
