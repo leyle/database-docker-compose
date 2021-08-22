@@ -13,8 +13,10 @@ services:
       - TZ=$TIMEZONE
       - MONGO_INITDB_ROOT_USERNAME=$ROOTUSER
       - MONGO_INITDB_ROOT_PASSWORD=$ROOTPASSWD
+      - MONGO_INITDB_DATABASE=$DBDEV
     volumes:
       - $PWD/data:/data/db
+      - ./db-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - mongodb-nt
     ports:

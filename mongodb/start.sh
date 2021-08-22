@@ -8,4 +8,8 @@ export ROOTPASSWD=rootpasswd
 export PORT=27017
 export CONTAINER=mongodb-$PORT
 
+export DBUSER=dbuser
+export DBPASSWD=dbpasswd
+export DBDEV=dev
+
 docker-compose -f mongodb.yaml up -d
