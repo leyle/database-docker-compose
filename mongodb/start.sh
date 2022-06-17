@@ -12,4 +12,9 @@ export DBUSER=dbuser
 export DBPASSWD=dbpasswd
 export DBDEV=dev
 
-docker-compose -f mongodb.yaml up -d
+DEBUG=$1
+if [ -z $DEBUG ]; then
+    docker-compose -f mongodb.yaml up -d
+else
+    docker-compose -f mongodb.yaml up
+fi
