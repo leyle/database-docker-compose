@@ -7,7 +7,8 @@ networks:
 services:
   mongo:
     image: mongo:$TAG
-    command: "mongod --replSet $REPLICA_SET_NAME --keyFile /data/replica.key"
+      # command: "mongod --replSet $REPLICA_SET_NAME --keyFile /data/replica.key"
+    command: "mongod --config /etc/mongod.conf"
     restart: always
     container_name: $CONTAINER
     environment:
@@ -17,6 +18,7 @@ services:
       - MONGO_INITDB_DATABASE=$DBDEV
     volumes:
       - $PWD/data:/data/db
+      - $PWD/server.yaml:/etc/mongod.conf
       - $PWD/keyfile/dev.key:/data/replica.key.tmp
       - ./db-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     entrypoint:
