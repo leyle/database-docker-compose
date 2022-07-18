@@ -1,0 +1,10 @@
+rs.initiate(
+    {
+        _id : "devRepl",
+        members: [
+          { _id : 0, host : "mgo0.dev.pymom.com:27017" },
+          { _id : 1, host : "mgo1.dev.pymom.com:27017" },
+          { _id : 2, host : "mgo2.dev.pymom.com:27017" }
+        ]
+  }
+)
