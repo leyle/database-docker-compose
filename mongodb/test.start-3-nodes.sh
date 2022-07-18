@@ -3,7 +3,7 @@
 echo "start a mongodb replica set contains 3 nodes"
 
 # fqdn: mgo0.replica.set
-DOMAIN_SUFFIX=".dev.pymom.com"
+DOMAIN_SUFFIX=".dev.replicaset"
 BASE_PORT=27017
 
 WORK_DIR=$HOME/.config/replicaset
