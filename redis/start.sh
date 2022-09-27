@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export TAG=6.0
+export TAG=7.0
 export NETWORK=redis-dev
 export TIMEZONE=Asia/Shanghai
 export PASSWORD=abc123
