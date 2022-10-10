@@ -1,0 +1,73 @@
+version: "3"
+
+networks:
+  kafka-nt:
+    name: kafka-cluster
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.8
+    container_name: zookeeper
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    volumes:
+      - zookeeper_data:/bitnami/zookeeper
+    networks:
+      - kafka-nt
+    ports:
+      - "2181:2181"
+  kafka-0:
+    image: docker.io/bitnami/kafka:3.2
+    container_name: kafka-0
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_BROKER_ID=0
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_0_data:/bitnami/kafka
+    depends_on:
+      - zookeeper
+    networks:
+      - kafka-nt
+    ports:
+      - "9092:9092"
+  kafka-1:
+    container_name: kafka-1
+    image: docker.io/bitnami/kafka:3.2
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_BROKER_ID=1
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_1_data:/bitnami/kafka
+    depends_on:
+      - zookeeper
+    networks:
+      - kafka-nt
+    ports:
+      - "9093:9092"
+  kafka-2:
+    image: docker.io/bitnami/kafka:3.2
+    container_name: kafka-2
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_BROKER_ID=2
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    volumes:
+      - kafka_2_data:/bitnami/kafka
+    depends_on:
+      - zookeeper
+    networks:
+      - kafka-nt
+    ports:
+      - "9094:9092"
+
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_0_data:
+    driver: local
+  kafka_1_data:
+    driver: local
+  kafka_2_data:
+    driver: local
