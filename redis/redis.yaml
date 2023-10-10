@@ -9,6 +9,7 @@ services:
     image: redis:$TAG
     container_name: $CONTAINER
     command: redis-server --requirepass $PASSWORD
+    restart: always
     environment:
       - TZ=$TIMEZONE
     volumes:
