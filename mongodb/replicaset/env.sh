@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# export TAG=5.0
-export TAG=4.4
+export TAG=5.0
+# export TAG=4.4
 export NETWORK=mongodb-dev
 export TIMEZONE=Asia/Shanghai
 export ROOTUSER=rootuser
