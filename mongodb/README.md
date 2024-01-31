@@ -198,3 +198,54 @@ db.createUser(
 );
 ```
 
+
+
+---
+
+## 增加一个新的 node 到已有的 replica set cluster 中
+
+新增一个 node 节点到已有的 mongodb replica set cluster 中的方法非常直接，下面是一些约束条件和步骤。
+
+
+
+**前提条件**
+
+1. 新启动的 node 需要与已有网络里面的所有节点在网络上能够互通；
+2. 新启动的 node 需要有一个**单独的、能够 dns 解析的网络名字**；
+3. 新启动的 node 需要使用已有网络的 cluster key 值；
+
+
+
+**添加步骤**
+
+1. 启动新 node（一般使用 docker compose 启动 image）
+2. 在 primary node 上执行 rs.add() 添加新 node
+3. 检查结果
+
+
+
+下面是一些主要操作命令
+
+```shell
+# 1. 启动一个新的 node
+# 这一步与之前网络中的节点的启动步骤没有什么不同，故略过。
+
+# 2. 在 primary node 上执行添加命令
+# 添加命令是 rs.add()，参数是新 node 的 dns 名字和端口
+# 比如
+rs.add('mgo3.x1c.pymom.com:27020')
+
+# 3. 检查添加结果
+# 从下面的命令中可以查看到 members 列表中是否已有新节点的信息
+rs.status()
+
+# 4. 使用 MongoDB compass 工具，从新节点连接数据库，检查数据库是否可以被连接
+# 比如本来的连接参数是
+# mongodb://dbuser:dbpasswd@mgo0.x1c.pymom.com:27017,mgo1.x1c.pymom.com:27018,mgo2.x1c.pymom.com:27019/?authSource=dev&replicaSet=devRepl&maxPoolSize=20&w=majority
+
+# 从新节点的连接参数是
+# mongodb://dbuser:dbpasswd@mgo3.x1c.pymom.com:27020/?authSource=dev&replicaSet=devRepl&maxPoolSize=20&w=majority
+
+# 还可以从这个 gui 工具的 info 信息中，看到已连接的 nodes 列表等。
+```
+
