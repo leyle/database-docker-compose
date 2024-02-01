@@ -239,6 +239,9 @@ rs.add('mgo3.x1c.pymom.com:27020')
 # 从下面的命令中可以查看到 members 列表中是否已有新节点的信息
 rs.status()
 
+# 使用如下命令，检查 secondary node 的数据同步结果
+rs.printSecondaryReplicationInfo()
+
 # 4. 使用 MongoDB compass 工具，从新节点连接数据库，检查数据库是否可以被连接
 # 比如本来的连接参数是
 # mongodb://dbuser:dbpasswd@mgo0.x1c.pymom.com:27017,mgo1.x1c.pymom.com:27018,mgo2.x1c.pymom.com:27019/?authSource=dev&replicaSet=devRepl&maxPoolSize=20&w=majority
