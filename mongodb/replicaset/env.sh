@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export TAG=5.0
+export TAG=7.0
 # export TAG=4.4
 export NETWORK=mongodb-dev
 export TIMEZONE=Asia/Shanghai

@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+
+CUR_DIR=$PWD
 
 echo "start a mongodb replica set contains 3 nodes"
 
@@ -41,4 +44,8 @@ do
 done
 
 # try to use rs.initiate() function to create replica set
-echo "use rs.initiate() to create replica set"
+# echo "use rs.initiate() to create replica set"
+echo "sleep 5s to setup cluster"
+sleep 5
+cd $CUR_DIR
+docker exec -it mgo0.dev.replicaset mongosh --eval "$(cat setup.replicaset.js)"
