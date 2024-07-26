@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  redis-1:
+    container_name: redis-1
+    image: redis:$VERSION
+    network_mode: "host"
+    command: redis-server --port $PORT1 --cluster-enabled yes --cluster-config-file nodes-$PORT1.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - redis-1-data:/data
+
+  redis-2:
+    container_name: redis-2
+    image: redis:$VERSION
+    network_mode: "host"
+    command: redis-server --port $PORT2 --cluster-enabled yes --cluster-config-file nodes-$PORT2.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - redis-2-data:/data
+
+  redis-3:
+    container_name: redis-3
+    image: redis:$VERSION
+    network_mode: "host"
+    command: redis-server --port $PORT3 --cluster-enabled yes --cluster-config-file nodes-$PORT3.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - redis-3-data:/data
+
+  redis-cli:
+    container_name: redis-cli
+    image: redis:$VERSION
+    network_mode: "host"
+    tty: true
+    stdin_open: true
+    command: /bin/bash
+
+volumes:
+  redis-1-data:
+  redis-2-data:
+  redis-3-data:
