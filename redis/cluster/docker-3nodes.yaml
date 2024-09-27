@@ -28,6 +28,33 @@ services:
     volumes:
       - redis-3-data:/data
 
+  redis-4:
+    container_name: redis-4
+    image: redis:$VERSION
+    restart: always
+    network_mode: "host"
+    command: redis-server --port $PORT4 --cluster-enabled yes --cluster-config-file nodes-$PORT4.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - redis-4-data:/data
+
+  redis-5:
+    container_name: redis-5
+    image: redis:$VERSION
+    restart: always
+    network_mode: "host"
+    command: redis-server --port $PORT5 --cluster-enabled yes --cluster-config-file nodes-$PORT5.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - redis-5-data:/data
+
+  redis-6:
+    container_name: redis-6
+    image: redis:$VERSION
+    restart: always
+    network_mode: "host"
+    command: redis-server --port $PORT6 --cluster-enabled yes --cluster-config-file nodes-$PORT6.conf --cluster-node-timeout 5000 --appendonly yes
+    volumes:
+      - redis-6-data:/data
+
   redis-cli:
     container_name: redis-cli
     image: redis:$VERSION
@@ -41,3 +68,6 @@ volumes:
   redis-1-data:
   redis-2-data:
   redis-3-data:
+  redis-4-data:
+  redis-5-data:
+  redis-6-data:
