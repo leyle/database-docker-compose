@@ -6,7 +6,7 @@ services:
     image: redis:$VERSION
     restart: always
     network_mode: "host"
-    command: redis-server --port $PORT1 --cluster-enabled yes --cluster-config-file nodes-$PORT1.conf --cluster-node-timeout 5000 --appendonly yes
+    command: redis-server --port $PORT1 --cluster-enabled yes --cluster-config-file nodes-$PORT1.conf --cluster-node-timeout 5000 --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     volumes:
       - redis-1-data:/data
 
@@ -15,7 +15,7 @@ services:
     image: redis:$VERSION
     restart: always
     network_mode: "host"
-    command: redis-server --port $PORT2 --cluster-enabled yes --cluster-config-file nodes-$PORT2.conf --cluster-node-timeout 5000 --appendonly yes
+    command: redis-server --port $PORT2 --cluster-enabled yes --cluster-config-file nodes-$PORT2.conf --cluster-node-timeout 5000 --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     volumes:
       - redis-2-data:/data
 
@@ -24,7 +24,7 @@ services:
     image: redis:$VERSION
     restart: always
     network_mode: "host"
-    command: redis-server --port $PORT3 --cluster-enabled yes --cluster-config-file nodes-$PORT3.conf --cluster-node-timeout 5000 --appendonly yes
+    command: redis-server --port $PORT3 --cluster-enabled yes --cluster-config-file nodes-$PORT3.conf --cluster-node-timeout 5000 --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     volumes:
       - redis-3-data:/data
 
@@ -33,7 +33,7 @@ services:
     image: redis:$VERSION
     restart: always
     network_mode: "host"
-    command: redis-server --port $PORT4 --cluster-enabled yes --cluster-config-file nodes-$PORT4.conf --cluster-node-timeout 5000 --appendonly yes
+    command: redis-server --port $PORT4 --cluster-enabled yes --cluster-config-file nodes-$PORT4.conf --cluster-node-timeout 5000 --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     volumes:
       - redis-4-data:/data
 
@@ -42,7 +42,7 @@ services:
     image: redis:$VERSION
     restart: always
     network_mode: "host"
-    command: redis-server --port $PORT5 --cluster-enabled yes --cluster-config-file nodes-$PORT5.conf --cluster-node-timeout 5000 --appendonly yes
+    command: redis-server --port $PORT5 --cluster-enabled yes --cluster-config-file nodes-$PORT5.conf --cluster-node-timeout 5000 --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     volumes:
       - redis-5-data:/data
 
@@ -51,7 +51,7 @@ services:
     image: redis:$VERSION
     restart: always
     network_mode: "host"
-    command: redis-server --port $PORT6 --cluster-enabled yes --cluster-config-file nodes-$PORT6.conf --cluster-node-timeout 5000 --appendonly yes
+    command: redis-server --port $PORT6 --cluster-enabled yes --cluster-config-file nodes-$PORT6.conf --cluster-node-timeout 5000 --appendonly yes --requirepass ${REDIS_PASSWORD} --masterauth ${REDIS_PASSWORD}
     volumes:
       - redis-6-data:/data
 
