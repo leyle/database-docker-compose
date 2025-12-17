@@ -1,5 +1,3 @@
-version: '3.6'
-
 networks:
   mongodb-nt:
     name: $NETWORK
@@ -33,3 +31,7 @@ services:
       - mongodb-nt
     ports:
       - $PORT:27017
+    extra_hosts:
+      - "mgo0.dev.test:10.254.254.254"
+      - "mgo1.dev.test:10.254.254.254"
+      - "mgo2.dev.test:10.254.254.254"

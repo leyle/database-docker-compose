@@ -6,7 +6,7 @@ CUR_DIR=$PWD
 echo "start a mongodb replica set contains 3 nodes"
 
 # fqdn: mgo0.replica.set
-DOMAIN_SUFFIX=".dev.replicaset"
+DOMAIN_SUFFIX=".dev.test"
 BASE_PORT=27017
 
 WORK_DIR=$HOME/.config/replicaset
@@ -48,4 +48,11 @@ done
 echo "sleep 5s to setup cluster"
 sleep 5
 cd $CUR_DIR
-docker exec -it mgo0.dev.replicaset mongosh --eval "$(cat setup.replicaset.js)"
+docker exec -it mgo0.dev.test mongosh --eval "$(cat setup.replicaset.js)"
+
+# create more users/databases
+# This connects to the Replica Set, not just the single container.
+# Mongosh will auto-discover the Primary.
+docker exec -i mgo0.dev.test mongosh \
+  "mongodb://mgo0.dev.test:27017,mgo1.dev.test:27018,mgo2.dev.test:27019/admin?replicaSet=devRepl" \
+  --quiet --eval "$(cat setup.users.js)"

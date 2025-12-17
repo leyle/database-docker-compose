@@ -8,9 +8,9 @@ db.auth('rootuser', 'rootpasswd');
 var config = {
     _id: "devRepl",
     members: [
-        { _id: 0, host: "mgo0.x1c.pymom.com:27017" },
-        { _id: 1, host: "mgo1.x1c.pymom.com:27018" },
-        { _id: 2, host: "mgo2.x1c.pymom.com:27019" }
+        { _id: 0, host: "mgo0.dev.test:27017" },
+        { _id: 1, host: "mgo1.dev.test:27018" },
+        { _id: 2, host: "mgo2.dev.test:27019" }
     ]
 };
 

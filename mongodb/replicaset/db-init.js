@@ -6,12 +6,3 @@ db.createUser(
     passwordDigestor: "server"
   }
 );
-
-db.createUser(
-  {
-    user: "readonly",
-    pwd: "readpasswd",
-    roles: [ { role: "read", db: "dev" }],
-    passwordDigestor: "server"
-  }
-);

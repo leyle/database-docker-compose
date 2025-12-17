@@ -1,0 +1,81 @@
+services:
+  kafka0:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka0
+    hostname: kafka0.dev.test
+    ports:
+      - "9092:9092"   # Client Port
+      - "19092:19092" # Controller Port (Internal Voting)
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:19092
+      
+      # 1. Advertised Listeners: What clients/brokers use to connect
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka0.dev.test:9092
+      
+      # 2. The Voters: How the 3 nodes find each other for consensus
+      # Note: We use the domains that resolve to your Alias IP
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka0.dev.test:19092,2@kafka1.dev.test:19093,3@kafka2.dev.test:19094
+      
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      
+      # 3. Cluster ID: Must be the same for all nodes. 
+      # I generated a random UUID for you here.
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+    extra_hosts:
+      - "kafka0.dev.test:10.254.254.254"
+      - "kafka1.dev.test:10.254.254.254"
+      - "kafka2.dev.test:10.254.254.254"
+
+  kafka1:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka1
+    hostname: kafka1.dev.test
+    ports:
+      - "9093:9093"   # Client Port (Different from node 0)
+      - "19093:19093" # Controller Port
+    environment:
+      KAFKA_NODE_ID: 2
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9093,CONTROLLER://0.0.0.0:19093
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka1.dev.test:9093
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka0.dev.test:19092,2@kafka1.dev.test:19093,3@kafka2.dev.test:19094
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+    extra_hosts:
+      - "kafka0.dev.test:10.254.254.254"
+      - "kafka1.dev.test:10.254.254.254"
+      - "kafka2.dev.test:10.254.254.254"
+
+  kafka2:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka2
+    hostname: kafka2.dev.test
+    ports:
+      - "9094:9094"   # Client Port
+      - "19094:19094" # Controller Port
+    environment:
+      KAFKA_NODE_ID: 3
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9094,CONTROLLER://0.0.0.0:19094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka2.dev.test:9094
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka0.dev.test:19092,2@kafka1.dev.test:19093,3@kafka2.dev.test:19094
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 2
+      CLUSTER_ID: "MkU3OEVBNTcwNTJENDM2Qk"
+    extra_hosts:
+      - "kafka0.dev.test:10.254.254.254"
+      - "kafka1.dev.test:10.254.254.254"
+      - "kafka2.dev.test:10.254.254.254"
